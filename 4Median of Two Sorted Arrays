@@ -1,0 +1,58 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+       
+        vector<int> num;
+        if(nums1.size()==0 && nums2.size()==1) return nums2[0];
+        if(nums2.size()==0 && nums1.size()==1) return nums1[0];
+        if(nums1.size()==0 && nums2.size()>1) num=nums2;
+        else if (nums2.size()==0 && nums1.size()>1) num=nums1;
+        else
+        {
+            double m = nums1.size()-1;
+            double n = nums2.size()-1;
+        
+            while (m>=0 && n>=0)//数组是从0开始的
+            {
+                if (nums1[m]>=nums2[n])
+                {
+                    num.push_back(nums1[m]);
+                    --m;
+                }
+                else
+                {
+                    num.push_back(nums2[n]);
+                    --n;
+                }
+            }
+
+            if (m!=-1)//判断是否被减到了-1
+            {
+                for(int i=m;i>=0;--i)
+                {
+                    num.push_back(nums1[i]);
+                }
+            }
+
+            if (n!=-1)//判断是否被减到了-1
+            {
+                for(int i=n;i>=0;--i)
+                {
+                    num.push_back(nums2[i]);
+                }
+            }
+            
+        }
+        
+        sort(num.begin(),num.end());
+        if(num.size()%2==1) return num[num.size()/2];
+        else
+        {
+            int ind = (num.size()-1)/2;
+            //return ind;
+            double temp = num[ind]+num[ind+1];//先做好加减
+            return temp/2;//涉及到乘除的时候，加减结束后再做
+        }
+        
+    }
+};
