@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int reverse(int x) {
+        
+        //if(x==INT_MIN) return 0;//这里必须要判断   应为 INT_MIN  为了表示方便用八位 二进制为 1000 0000  进行x=-x运算时，计算机中用补码相乘，-1的补码为原码除符号位外取反加1  也就是 1000 0001  取反加一补码变为 1111 1111，所以x=-x变为补码乘法 1000 0000*1111 1111 =1000 0000，x又等于了INT_MIN ,所以当while循环中的x并没有为正数。
+        
+        int len =0;
+        int temp1=x;
+        int temp2=x;
+        int temp3=x;
+        long long result[1000];
+        memset(result,1,sizeof(result));
+        long long end=0;
+        while(temp1)
+        {
+            result[len] = pow(10,len);
+            len++;
+            temp1 = temp1/10;
+        }
+        
+        while(len)
+        {
+            len--;
+            temp3=temp2%10;
+            temp2=temp2/10;
+            end = end+temp3*result[len];//temp3或是result[len]必须有一个long long 型的才能保证end是longlong的
+        }
+        if(end>INT_MAX || end<INT_MIN) 
+        {
+            return 0;
+        }
+        return end;
+        
+    }
+};
