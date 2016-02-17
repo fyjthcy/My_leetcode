@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        //zigspan+j-2*i这个公式很重要，而且读取和遍历存储同时进行，
+        //要发现首尾两行每组zigspan只有一个字符，中间行则是有两个，
+        //横竖交点的那个直接存，中间的则用公式找到存储起来
+        int len = s.length();
+        int zigspan = (numRows-1)*2;
+        string results;
+        if(numRows <= 1 || len < 3 || len <= numRows) return s;  
+        for(int i=0;i<numRows;i++)
+        {
+            for(int j=i;j<len;j=j+zigspan)
+            {
+                results.push_back(s[j]);
+                if(i!=0 && i!=numRows-1 && zigspan+j-2*i<len)
+                {
+                    results.push_back(s[zigspan+j-2*i]);
+                }
+            }
+        }
+        return results;
+    }
+};
