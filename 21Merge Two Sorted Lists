@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {//头指针只是为了可以更好的返回整个链表，操作指针是为了中间的遍历操作，一般不用头指针作为遍历指针，因为这样到最后返回的时候，起始位置已经找不到了！！！无论怎样操作，头指针没有用的，置为空是l1=null;l2=null; 不是l1->next，意思是指向节点的后一个！！！注意！！！
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        if(l1==NULL) return l2;
+        if(l2==NULL) return l1;
+        ListNode *p1=l1;
+        ListNode *p2=l2;
+        ListNode *l3=NULL;
+        ListNode *p3=l3;
+        if(l1->val>=l2->val) 
+        {
+            l3=l2;
+            p2=p2->next;
+        }
+        else 
+        {
+            l3=l1;
+            p1=p1->next;
+        }
+        p3=l3;
+        while(p1!=NULL && p2!=NULL)
+        {
+            if(p1->val>=p2->val)
+            {
+                p3->next=p2;
+               // p3=p2;
+                p2=p2->next;
+            }
+            else
+            {
+                p3->next=p1;
+               // p3=p1;
+                p1=p1->next;
+            }
+            p3=p3->next;
+        }
+        if(p1==NULL)
+        {
+            p3->next=p2;
+        }
+        if(p2==NULL)
+        {
+            p3->next=p1;
+        }
+        return l3;
+    }
+};
