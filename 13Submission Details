@@ -1,0 +1,33 @@
+//1~9: {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+//10~90: {"X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+//100~900: {"C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+//1000~3000: {"M", "MM", "MMM"}.
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        int result = RomantoInteger(s[0]);
+        for(int i=1;i<s.length();i++)
+        {
+            if(RomantoInteger(s[i])>RomantoInteger(s[i-1])) //注意如果存在左面比右面数字高 'IV','XL','CD'之类的情况，要将当前减去前一个的二倍，因为当前此字符代表的数值是减少二倍的
+                result = result+RomantoInteger(s[i])-2*RomantoInteger(s[i-1]);
+            else//如果不是，则直接加到上面去即可
+                result = result+RomantoInteger(s[i]);
+        }
+        return result;
+    }
+    int RomantoInteger(char a)//switch case的具体写法要熟练
+    {
+        switch(a)
+        {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+        }
+        return 0;
+    }
+};
