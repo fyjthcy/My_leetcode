@@ -1,0 +1,45 @@
+class Solution {
+    vector<vector<int>> ret;
+    vector<int> temp;
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        if(nums.size()<4) return ret;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<nums.size();i++)
+        {
+            while(i > 0 && i < nums.size() && nums[i] == nums[i-1]) i++; //避免i的重复也是需要的！！！
+            for(int j=i+1;j<nums.size();j++)
+            {
+                while(j > i+1 && j < nums.size() && nums[j] == nums[j-1]) j++; //j>i+1 是关键，i每变化一次，j重新开始才行，不能j>1!!!
+                int m=j+1;
+                int n=nums.size()-1;
+                while(m<n)
+                {
+                    int sum=nums[i]+nums[j]+nums[m]+nums[n];
+                    if(sum==target)
+                    {
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[j]);
+                        temp.push_back(nums[m]);
+                        temp.push_back(nums[n]);
+                        ret.push_back(temp);
+                        temp.clear();
+                        m++;
+                        n--;
+                        while(m > 0 && m < nums.size() && nums[m] == nums[m-1]) m++; 
+                        while(n > 0 && n < nums.size() && nums[n] == nums[n+1]) n--; 
+                    }
+                    else if(sum>target) {
+                        n--;
+                        while(n > 0 && n < nums.size() && nums[n] == nums[n+1]) n--; //此处是nums[n+1]
+                    }
+                    else {
+                        m++;
+                        while(m > 0 && m < nums.size() && nums[m] == nums[m-1]) m++; //此处是nums[m-1]
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+};
