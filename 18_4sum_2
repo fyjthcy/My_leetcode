@@ -1,0 +1,43 @@
+class Solution {
+    vector<vector<int>> ret;
+    vector<int> temp;
+    set<vector<int>> tmpres;  //十分精妙，set不允许重复的数据！！！
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        if(nums.size()<4) return ret;
+        sort(nums.begin(),nums.end());
+        for(int i=0;i<nums.size();i++)
+        {
+            for(int j=i+1;j<nums.size();j++)
+            {
+                int m=j+1;
+                int n=nums.size()-1;
+                while(m<n)
+                {
+                    int sum=nums[i]+nums[j]+nums[m]+nums[n];
+                    if(sum==target)
+                    {
+                        temp.push_back(nums[i]);
+                        temp.push_back(nums[j]);
+                        temp.push_back(nums[m]);
+                        temp.push_back(nums[n]);
+                        tmpres.insert(temp);
+                        temp.clear();
+                        m++;
+                        n--;
+                    }
+                    else if(sum>target) {
+                        n--;
+                    }
+                    else {
+                        m++;
+                    }
+                }
+            }
+        }
+        set<vector<int>>::iterator it = tmpres.begin();  
+        for(; it != tmpres.end(); it++)  
+            ret.push_back(*it);  
+        return ret;
+    }
+};
