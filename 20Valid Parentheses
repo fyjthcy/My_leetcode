@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int judge(char a)
+    {
+        if(a=='(') return 1;
+        else if(a==')') return 2;
+        else if(a=='[') return 1;
+        else if(a==']') return 2;
+        else if(a=='{') return 1;
+        else if(a=='}') return 2;
+        else return 0;
+    }
+    bool isValid(string s) {
+        stack<char> ret;
+        int length = s.size();
+        if(length==0) return true;
+        if(length==1) return false;
+        //while(s[length-1]='')
+        if(length>1)
+        {
+            ret.push(s[0]);
+            for(int i=1;i<length;i++)
+            {
+                if(judge(s[i])!=0)
+                {
+                    if(judge(s[i])==2)
+                    {
+                        if(!ret.empty())//判断栈是否空，为空返回true，不空为false
+                        {
+                            if(ret.top()=='('&&s[i]==')' || ret.top()=='['&&s[i]==']' || ret.top()=='{'&&s[i]=='}')
+                                ret.pop();
+                            else return false;//栈顶和s[i]不匹配，不行！
+                        }
+                        else return false;
+                    }
+                    else if(judge(s[i])==1)
+                    {
+                        ret.push(s[i]);
+                    }
+                }
+                else return false;
+            }
+            if(!ret.empty()) return false;//栈非空，返回false
+        }
+        return true;
+    }
+};
