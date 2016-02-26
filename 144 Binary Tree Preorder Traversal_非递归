@@ -14,20 +14,14 @@ public:
     vector<int> preorderTraversal(TreeNode* root) {
         while(root!=NULL || !st.empty())
         {
-            if(root!=NULL)
+            while(root!=NULL)
             {
-                while(root!=NULL)
-                {
-                    ret.push_back(root->val);//当前节点值放到ret中
-                    st.push(root);//压入栈中
-                    root=root->left;//继续遍历左子树
-                }//遍历左子树完毕
+                ret.push_back(root->val);//当前节点值放到ret中
+                st.push(root);//压入栈中
+                root=root->left;//继续遍历左子树
             }//遍历左子树完毕
-            else
-            {
-                root=st.top()->right;//根节点指向栈顶元素
-                st.pop();//栈顶元素出栈
-            }
+            root=st.top()->right;//根节点指向栈顶元素
+            st.pop();//栈顶元素出栈
         }
         return ret;
     }
