@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int length=height.size();
+        int left=0;
+        int right=length-1;
+        int high=0;
+        int area=0;
+        while(left<right)
+        {
+            if(height[left]<height[right])
+            {
+                high=max(height[left],high);
+                area+=high-height[left];
+                left++;
+            }
+            else
+            {
+                high=max(height[right],high);
+                area+=high-height[right];
+                right--;
+            }
+        }
+        return area;
+    }
+};
