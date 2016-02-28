@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        stack<string> s;
+        string str;
+        int a, b;
+        bool flag = true;
+        for (int i = 0; i < path.length(); ++i) {
+            if (path[i] == '/') {
+              path[i] = ' ';
+            }
+        }
+        istringstream sin(path);
+        while (sin >> str) {
+            if (str == ".." && !s.empty()) {
+                s.pop();
+            } else if (str == "." || str == ".." && s.empty()) {
+                
+            } else {
+                s.push(str);
+            }
+        }
+        string res = "";
+        if (s.empty()) {
+            return "/";
+        }
+        while (!s.empty()) {
+            res = "/" + s.top() + res;
+            s.pop();
+        }
+        return res;
+    }
+};
