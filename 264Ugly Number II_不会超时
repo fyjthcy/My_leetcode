@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int min(int a,int b,int c)
+    {
+        int min=a<b?a:b;
+        return min<c?min:c;
+    }
+    int nthUglyNumber(int n) {
+        int uglyNums[n];
+        int next=1;
+        int i=0;
+        int j=0;
+        int k=0;
+        uglyNums[0]=1;
+        while(next<n)
+        {
+            int _min=min(uglyNums[i]*2,uglyNums[j]*3,uglyNums[k]*5);
+            uglyNums[next]=_min;
+            if(uglyNums[i]*2 == _min) i++;  
+            if(uglyNums[j]*3 == _min) j++;  
+            if(uglyNums[k]*5 == _min) k++;  
+            next++;  
+        }
+        return uglyNums[n-1];  
+    }
+};
