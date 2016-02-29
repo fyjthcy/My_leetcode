@@ -1,0 +1,26 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if(head==NULL || head->next==NULL) return head;
+        ListNode *p=head;
+        ListNode *q=head->next;
+        ListNode *r=q;
+        while(q!=NULL&&q->next!=NULL)//此处的   q!=NULL其实是为了防止123这种情况来设定的，其他时候满足q->next!=NULL即可
+        {
+            p->next=q->next;
+            p=q->next;
+            q->next=p->next;
+            q=p->next;
+        }
+        p->next=r;
+        return head;
+    }
+};
