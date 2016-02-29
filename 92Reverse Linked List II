@@ -1,0 +1,30 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        vector<ListNode*> range(n-m+1);//此用法非常巧妙！！！
+        ListNode* iter=head;
+        for(int i=1;i<m;i++)
+        {
+            iter=iter->next;
+        }
+        for(int j=0;j<n-m+1;j++)
+        {
+            range[j]=iter;
+            iter=iter->next;
+        }
+        for(int j=0;j<range.size()/2;j++)
+        {
+            swap(range[j]->val,range[range.size()-j-1]->val);//把相应的位置进行替换，你会发现要替换的是对称的！！！
+        }
+        return head;
+        
+    }
+};
