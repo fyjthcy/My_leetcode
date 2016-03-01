@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if(strs.size()==0) return "";//strs.size()是strs总共有几个string
+        if(strs.size()>=2 && strs[0]==""&&strs[1]=="") return "";
+        
+        string ret=strs[0];
+        for(int i=1;i<strs.size();i++)
+        {
+            int j=0;
+            while(j<strs[i].size()&&strs[i].substr(j,1)==ret.substr(j,1))//strs[i].size()是第i个string的长度
+            {
+                j++;
+            }
+            ret=ret.substr(0,j);
+        }
+        return ret;
+    }
+};
