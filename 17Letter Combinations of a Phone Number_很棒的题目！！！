@@ -1,0 +1,23 @@
+class Solution {//此题很棒 要认真思考！！！！！
+public:
+    vector<string> letterCombinations(string digits) {
+        vector<string> ret;
+        if(digits=="") return ret;
+        string digits_cut[10]={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        ret.push_back("");
+        for(int i=0;i<digits.size();i++)
+        {
+            vector<string> temp;
+            string digits_part=digits_cut[digits[i]-'0'];
+            for(int j=0;j<digits_part.size();j++)
+            {
+                for(int k=0;k<ret.size();k++)
+                {
+                    temp.push_back(ret[k]+digits_part[j]);
+                }
+            }
+            ret=temp;
+        }
+        return ret;
+    }
+};
