@@ -1,0 +1,26 @@
+class Solution {
+    vector<vector<int>> ret;
+public:
+    void huisu(vector<int>& nums, int index)
+    {
+        if(index==nums.size())
+        {
+            ret.push_back(nums);
+        }
+        else
+        {
+            for(int i=index;i<nums.size();i++)//非常巧妙的方法，一定记住！！！
+            {
+                swap(nums[index],nums[i]);
+                huisu(nums,index+1);
+                swap(nums[index],nums[i]);
+            }
+        }
+        return;
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        ret.clear();
+        huisu(nums,0);
+        return ret;
+    }
+};
