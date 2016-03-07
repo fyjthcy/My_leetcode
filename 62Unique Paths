@@ -1,0 +1,33 @@
+class Solution {
+public:
+    long zuhe(int sum,int temp)
+    {
+        int tmp1=temp;
+        int tmp2=sum;
+        long ret1=1;
+        long ret2=1;
+        while(tmp1)
+        {
+            ret1*=tmp1;
+            tmp1--;
+        }
+        while(tmp2!=sum-temp)
+        {
+            ret2*=tmp2;
+            tmp2--;
+        }
+        return ret2/ret1;
+    }
+    int uniquePaths(int m, int n) {
+        if(m==1 || n==1) return 1;
+        int sum=m+n-2;
+        if(m>=n)
+        {
+            return zuhe(sum,n-1);
+        }
+        else
+        {
+            return zuhe(sum,m-1);
+        }
+    }
+};
