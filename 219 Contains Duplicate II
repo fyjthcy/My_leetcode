@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        map<int,int> int_map;
+        for(int i=0;i<nums.size();i++)
+        {
+             if(int_map.find(nums[i]) !=int_map.end()&& i-int_map[nums[i]]<=k){//map中如果找不到，则赋值为end(),一开始为空，肯定找不到，所以执行else部分，不断存入，1,1;2,2;3,3.....直到再有重复时候则完毕
+                     return true;
+             }
+             else
+             {
+                 int_map[nums[i]]=i;
+             }
+        }
+        return false;
+    }
+};
