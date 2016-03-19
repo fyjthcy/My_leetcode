@@ -1,4 +1,5 @@
-class Solution {//负数没有回文数
+class Solution {//负数没有回文数 
+                //一头一尾分别向中间遍历推进，判断每个字符是否是对应向等，直到中间元素
 public:
     bool isPalindrome(int x) {
         int div = 1;
