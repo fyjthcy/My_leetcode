@@ -42,3 +42,34 @@ public:
     return index;
     }
 };
+以上结果不正确，因为返回的值是排序之后的index，原始的已经不在，所以是不对的
+
+用hashtable来做，利用STL中的Map
+思路是循环一次，每次都判断当前数组索引位置的值在不在hashtable里，不在的话，加入进去，key为数值，value为它的索引值；
+在的话，取得他的key，记为n（此时n一定小于循环变量i），接下来再在hashtable中查找（target-当前数值）这个数，
+利用了hashtable中查找元素时间为常数的优势，如果找到了就结束，此处需要注意的是，如果数组中有重复的值出现，
+那么第二次出现时就不会加入到hashtable里了，比如3,4,3,6；target=6时，当循环到第二个3时，也可以得到正确结果。
+class Solution {  
+public:  
+    vector<int> twoSum(vector<int> &numbers, int target) {  
+        int i, sum;  
+        vector<int> results;  
+        map<int, int> hmap;  
+        for(i=0; i<numbers.size(); i++){  
+            if(!hmap.count(numbers[i])){  
+                hmap.insert(pair<int, int>(numbers[i], i));  
+            }  
+            if(hmap.count(target-numbers[i])){  
+                int n=hmap[target-numbers[i]];  
+                if(n<i){  
+                    results.push_back(n+1);  
+                    results.push_back(i+1);  
+                    //cout<<n+1<<", "<<i+1<<endl;  
+                    return results;  
+                }  
+  
+            }  
+        }  
+        return results;  
+    }  
+};  
