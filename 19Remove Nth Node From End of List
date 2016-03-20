@@ -8,7 +8,7 @@
  */
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) {//p指向要删除的，t是p的前面一个，q是可以遍历到最后一个
+    ListNode* removeNthFromEnd(ListNode* head, int n) {//p指向要删除的，t是p的前面一个，q是可以遍历到最后一个，pq之间相差n个
         ListNode*p=head;
         ListNode*q=head;
         ListNode*t=NULL;
