@@ -14,8 +14,10 @@ public:
                 for(int k=0;k<ret.size();k++)
                 {
                     temp.push_back(ret[k]+digits_part[j]);
+                    
                 }
-            }
+            }//temp的设置很关键，以“23”为例，对应“abc”,"def",那么temp第一次返回的是[“a”，“b”，“c”]，覆盖ret
+             //第二次返回的是[“ae”，“be”，“ce”，“af”，“bf”，“cf”，“ag”，“bg”，“cg”],覆盖ret
             ret=temp;
         }
         return ret;
