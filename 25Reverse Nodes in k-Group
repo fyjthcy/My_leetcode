@@ -1,0 +1,68 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if(head==NULL || k<=1) return head;
+        ListNode* tmp=head;
+        int tmp_k=0;//记录链表长度
+        while(tmp!=NULL)
+        {
+            tmp_k++;
+            tmp=tmp->next;
+        }
+        if(tmp_k<k) return head;//长度小于k时
+        
+        ListNode* pNode = head;//当前节点
+        ListNode* pHead = head;//指向每个反转小段的头节点
+        ListNode* pPrev = NULL;//pnode的前即节点
+        ListNode* pReverse = NULL;//最终反传出来头节点，返回这个值
+        ListNode* pEveryend = NULL;//每个反转小段的尾节点，便于和后面段链接。
+        
+        int my_k=0;
+        while(pNode!=NULL)
+        {
+            /////////////////////////////////////////////////////该部分进行反转
+             my_k++;
+             ListNode* pNext = pNode->next;
+             pNode->next = pPrev;
+             pPrev=pNode;
+             pNode=pNext;
+           ///////////////////////////////////////////////////////
+             if(my_k%k==0 && my_k/k>1)//第二段及以上的时候
+             {
+                 pHead->next = pNode;  //反转完毕的一段和下一段链接
+                 pEveryend->next=pPrev;//上一段和反转完毕的一段链接
+                 pEveryend=pHead;      //将上一段尾节点交给现在这段的尾节点，就是该段头节点指的位置，
+                                       //因为已经反转了，所以phead此时样子上是在尾部。
+                 pPrev = NULL;         //反转时候的前即节点置为空，便于反转的部分进行
+                 pHead = pNode;        //将要反转的头节点归位，指向pNode即可
+                 tmp_k-=k;//长度减去k，剩余长度
+             }
+             if(my_k%k==0 && my_k/k==1)//第一段的时候
+             {
+                 pReverse = pPrev;    //反转的时候是返回pReverse的，因为这是第一段反转，
+                                      //所以没有前面反转好的段，所以pEveryend->next=pPrev这句不用。其他部分都一样了
+                 pHead->next = pNode;
+                 pEveryend=pHead;
+                 pPrev = NULL;
+                 pHead = pNode;
+                 tmp_k-=k;
+             }
+             if(pNode==NULL || tmp_k<k) //剩余长度小于k时候，直接返回；遍历完毕后直接返回。
+             {
+                 return pReverse;
+             }
+             
+        }
+        
+        return pReverse;
+    }
+    
+};
