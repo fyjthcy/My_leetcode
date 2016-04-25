@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {//边界条件很重要，要注意各种情况！
+        if(A>C ||E>G || B>D ||F>H) return 0;
+        int a[4]={A,C,E,G};
+        int b[4]={B,D,F,H};
+        sort(a,a+4);
+        sort(b,b+4);
+        int AREA = (C-A)*(D-B)+(G-E)*(H-F);
+        if(C<E || G<A|| D<F|| H<B) return AREA;//两形状不相交
+        else if(A<E&&G<C&&B<F&&D>H) return (C-A)*(D-B);//一个在一个里面
+        else if(A>E&&G>C&&B>F&&D<H) return (G-E)*(H-F);//一个在一个里面
+        else return AREA-(a[2]-a[1])*(b[2]-b[1]);//相交情况，取两个数组中第2，3位置的即可，算出来就是多加了一次的重叠部分。
+    }
+};
