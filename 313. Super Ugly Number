@@ -3,13 +3,13 @@ public:
     int nthSuperUglyNumber(int n, vector<int>& primes) {
         
        if(n<1) return 0;
-       long long index[n];
+       long long index[primes.size()];//index数组的大小和uglyNums数组的大小是不一样的
        long long uglyNums[n];
-       memset(index,0,sizeof(index));
-       memset(uglyNums,0,sizeof(uglyNums));//需要进行初始化，否则只进行部分的初始化是不可以的
+       memset(index,0,sizeof(index));//需要进行初始化，否则只进行部分的初始化是不可以的
+       memset(uglyNums,0,sizeof(uglyNums));//需要进行初始化 
        int next=1;
        uglyNums[0]=1;
-    //   for(int i=0;i<primes.size();i++)//初始化prime list的每个下标，开始都是0
+    //   for(int i=0;i<n;i++)//初始化prime list的每个下标，开始都是0
     //   {
     //       index[i] =0; 
     //   } 
@@ -32,6 +32,3 @@ public:
        return uglyNums[n-1];
     }
 };
-
-
-
