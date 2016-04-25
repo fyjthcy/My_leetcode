@@ -1,0 +1,28 @@
+void binaryadd(string a, string b,int& l_a,int& l_b,stack<char>& ret,int &tmp)
+    {
+        while(l_a!=-1 && l_b!=-1)
+        {
+            if(a[l_a]-'0'+b[l_b]-'0'+tmp==3) //该位是1+1+1的情况
+            {
+                ret.push(1+'0');
+                tmp=1;
+            }
+            else if(a[l_a]-'0'+b[l_b]-'0'+tmp==2) //该位是1+1+0,1+0+1,0+1+1的情况
+            {
+                ret.push(0+'0');
+                tmp=1;
+            }
+            else if(a[l_a]-'0'+b[l_b]-'0'+tmp==1)//该位是1+0+0,0+1+0,0+0+1的情况
+            {
+                ret.push(1+'0');
+                tmp=0;
+            }
+            else                                     //该位是0+0+0的情况
+            {
+                ret.push(0+'0');
+                tmp=0;
+            }
+            l_a--;
+            l_b--;
+        }
+    }
