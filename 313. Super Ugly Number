@@ -1,0 +1,37 @@
+class Solution {//主要对照2，3，5的方法
+public:
+    int nthSuperUglyNumber(int n, vector<int>& primes) {
+        
+       if(n<1) return 0;
+       long long index[n];
+       long long uglyNums[n];
+       memset(index,0,sizeof(index));
+       memset(uglyNums,0,sizeof(uglyNums));//需要进行初始化，否则只进行部分的初始化是不可以的
+       int next=1;
+       uglyNums[0]=1;
+    //   for(int i=0;i<primes.size();i++)//初始化prime list的每个下标，开始都是0
+    //   {
+    //       index[i] =0; 
+    //   } 
+
+       while(next<n)
+       {
+            int min=INT_MAX;
+            for(int i=0;i<primes.size();i++)//找出每个uglyNums数组在其当前index下的最小的那个，注意各自的index[i]是不同的
+            {
+                 if(uglyNums[index[i]]*primes[i]<min) min=uglyNums[index[i]]*primes[i];
+            }   
+            uglyNums[next]=min;
+            for(int i=0;i<primes.size();i++)
+            {
+                 if(uglyNums[index[i]]*primes[i]==min) index[i]++;
+            }
+            ++next;
+       }
+
+       return uglyNums[n-1];
+    }
+};
+
+
+
