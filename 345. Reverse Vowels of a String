@@ -1,0 +1,54 @@
+////第一种方法24ms
+class Solution {
+public:
+    bool isVowels(char s)
+    {
+        if(s=='a'||s=='e'||s=='i'||s=='o'||s=='u'||s=='A'||s=='E'||s=='I'||s=='O'||s=='U') return true;
+        else return false;
+    }
+    string reverseVowels(string s) {
+        
+        int i=0;
+        int j=s.size()-1;
+        while(i<j)
+        {
+            while(i<j&&!isVowels(s[j])) j--;
+            while(i<j&&!isVowels(s[i])) i++;
+            if(i<j)
+            {
+                swap(s[i],s[j]);
+                i++;
+                j--;
+            }
+        }
+        return s;
+    }
+};
+
+////第二种方法16ms
+class Solution {
+public:
+    bool isVowels(char s)
+    {
+        if(s=='a'||s=='e'||s=='i'||s=='o'||s=='u'||s=='A'||s=='E'||s=='I'||s=='O'||s=='U') return true;
+        else return false;
+    }
+    string reverseVowels(string s) {
+        
+        int i=0;
+        int j=s.size()-1;
+        while(i<j)
+        {
+            while(i<j&&!isVowels(s[j])&&isVowels(s[i])) j--;
+            while(i<j&&!isVowels(s[i])&&isVowels(s[j])) i++;
+            while(i<j&&!isVowels(s[i])&&!isVowels(s[j])) {i++;j--;}
+            if(i<j&&isVowels(s[i])&&isVowels(s[j]))
+            {
+                swap(s[i],s[j]);
+                i++;
+                j--;
+            }
+        }
+        return s;
+    }
+};
