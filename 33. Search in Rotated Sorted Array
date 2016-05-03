@@ -15,7 +15,7 @@ public:
             
             if(nums[mid]<nums[l] && nums[mid]<target && nums[r]>=target) l=mid;
             if(nums[mid]<nums[l] && nums[mid]<target && nums[r]<target) r=mid;
-            if(nums[mid]<nums[r] && nums[mid]>=target) r=mid;
+            if(nums[mid]<nums[l] && nums[mid]>=target) r=mid;
             if(nums[l]==target) return l;
             if(r-l==1) return -1;
             
